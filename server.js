@@ -2,7 +2,7 @@ var express = require("express");
 var exphbs = require("express-handlebars");
 
 // Server Listening on http://localhost:8080
-// Connected on PORT 330681
+
 var PORT = process.env.PORT || 8080;
 
 var app = express();
