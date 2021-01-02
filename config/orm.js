@@ -46,7 +46,7 @@ const orm = {
       cb(result);
     });
   },
-  create: function(table, cols, vals, cb) {
+  insert: function(table, cols, vals, cb) {
     const queryString = "INSERT INTO " + table;
 
     queryString += " (";
