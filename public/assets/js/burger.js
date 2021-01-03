@@ -1,50 +1,56 @@
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
-$(function () {
+$(function(){
 
-  $(".delquote").on("click", function (event) {
+    $(".delquote").on("click", function (event) {
+      event.preventDefault();
 
-    var id = $(this).attr("data-id");
+      const id  = $(this).data("id");
 
-    // Delete Request
-    $.ajax("/api/burger" + id, {
-      type: "DELETE"
-    }).then(
-      function () {
-        console.log("deleted id ", id);
+  
+// DELETE request.
+      $.ajax( {
+        url: "/api/delete-burger/" + id,
+        method: "DELETE",
+      }).then(function () {
+        console.log("Deleted the Burger");
         location.reload();
-      }
-    );
+      });
+    });
+
+  $(".devour").on("click", function (event) {
+    event.preventDefault();
+    let id = $(this).data("id");
+
+
+// PUT request.
+    $.ajax( {
+      url: "/api/eat-burger/" + id,
+      method: "PUT",
+    }).then(function () {
+      console.log("Nom Nom");
+      location.reload();
+    });
   });
 
+//   Putting Entries On Form
   $(".create-form").on("submit", function (event) {
     event.preventDefault();
 
-    var newBurger = {
-      burgername: $("#auth").val().trim(),
-      burgerauth: $("#quo").val().trim()
+// Defining New Burgers
+    let  newBurger  = {
+      burger_name: $("#auth").val().trim(),
+      burger_name: $("#quo").val().trim(),
     };
+    console.log(newBurger);
 
-  // Send the POST request.
-    $.ajax("/api/burger", {
-      type: "POST",
-      data: newBurger
-    }).then(
-      function () {
-        console.log("created new burger");
-        location.reload();
-      }
-    );
-  });
-
-  // Send the PUT request.
-  $.ajax("/api/burger/" + id, {
-    type: "PUT",
-    data: newBurger
-  }).then(
-    function () {
-      console.log("burger name", newBurger);
+// POST request.
+    $.ajax({
+      url: "/api/add-burger",
+      method: "POST",
+      data: newBurger,
+    }).then(function () {
+      console.log("Added for consumption!");
       location.reload();
-    }
-  );
-
+    });
+  });
 });
