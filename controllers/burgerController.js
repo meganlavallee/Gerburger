@@ -17,6 +17,7 @@ router.get("/", function(req, res) {
     res.render("index", hbsObject);
   });
 });
+
 // Add new data
 router.post("/api/add-burgers", function (req, res) {
 
@@ -24,22 +25,36 @@ router.post("/api/add-burgers", function (req, res) {
   burger.insert(burger_name, function (result) {
     // Send back the ID of the new quote
     res.json({ id: result.insertId });
-    console.log("Burger Added!");
+    console.log("Added the burger! Yummy!!!");
   });
 });
 
 // Update data
-router.put("/api/burger/:id", function(req, res) {
+router.put("/api/burgers/:id", function(req, res) {
   const condition = "id = " + req.params.id;
 
   console.log("condition", condition);
 
-  burger.devour({
+  burger.update({
     devour: req.body.devour
   }, condition, function(result) {
     if (result.changedRows == 0) {
       // If no rows were changed, then the ID must not exist, so 404
       return res.status(404).end();
+    } else {
+      res.status(200).end();
+      console.log("Updated");
+    }
+  });
+});
+
+// Delete data
+router.delete("/api/delete-burger/:id", function (req, res) {
+  burger.delete(req.params.id, function (err, data) {
+    if (err) {
+      res.status(500).end();
+    } else if (data.affectedRows == 0) {
+      res.status(404).end();
     } else {
       res.status(200).end();
     }
