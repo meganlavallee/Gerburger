@@ -19,7 +19,7 @@ router.get("/", function(req, res) {
 });
 
 // Add new data
-router.post("/api/add-burgers", function (req, res) {
+router.post("/api/add-burger", function (req, res) {
 
   const burger_name = req.body.burger_name;
   burger.insert(burger_name, function (result) {
@@ -30,7 +30,7 @@ router.post("/api/add-burgers", function (req, res) {
 });
 
 // Update data
-router.put("/api/burgers/:id", function(req, res) {
+router.put("/api/burger/:id", function(req, res) {
   const condition = "id = " + req.params.id;
 
   console.log("condition", condition);
