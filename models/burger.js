@@ -27,7 +27,7 @@ const burger = {
 
   // Delete
   delete: function(id, cb) {
-    orm.deleteOne("burger", id, cb);
+    orm.delete("burger", id, cb);
   },
 
   // The variables cols and vals are arrays.
